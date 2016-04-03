@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# dot
+#
+# `dot` handles installation, updates, things like that. Run it periodically
+# to make sure you're on the latest and greatest.
+
+# dot init
+## initialize the base for dot
+
+# dot create [module]
+## e.g. dot create homebrew
+##
+
+# dot rm [module]
+## e.g. dot create homebrew
+
+# dot update
