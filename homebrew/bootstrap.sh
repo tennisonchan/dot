@@ -1,18 +1,28 @@
 #!/bin/sh
+#
+# Using homebrew-bundle https://github.com/Homebrew/homebrew-bundle
+#
+# .brewfilerc
+#   To serve as a config for brew.
+# install.sh
+#   To install homebrew based on the OS type.
+# sync.sh
+#   To sync the brew formulas based on Brewfile. Will not remove installed formulas which is not on Brewfile.
+# update.sh
+#   To update the Brewfile and commit if there is any change.
+# cleanup.sh
+#   To uninstall all Homebrew formulae not listed in Brewfile.
 
-DOTFILES_ROOT="$(dirname "$(pwd -P)")"
+# DOTFILES_ROOT="$(dirname "$(pwd -P)")"
 
-sh ./install.sh
+BREWFILE_PATH="$(pwd)/Brewfile";
 
-### Check if file Brewfile exist
-###   if it exists, run "brew bundle"
-###   if not exist, run "sh update.sh" to create update
+sh install.sh;
 
-if test -f ./Brewfile
-then
-  echo "Brewfile exists"
-  brew bundle
+if test -f $BREWFILE_PATH; then
+  echo "Brewfile exists.";
+  sh sync.sh;
 else
-  echo "Brewfile doens't exist"
-  sh update.sh && brew bundle
+  echo "Brewfile doens't exist.";
+  sh update.sh && sh sync.sh;
 fi
