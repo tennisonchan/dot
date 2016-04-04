@@ -7,5 +7,5 @@ BREWFILE_PATH="$(pwd)/Brewfile";
 if test -f $BREWFILE_PATH; then
   brew bundle install;
 else
-  echo "Missing file Brewfile. Please run 'dot update npm'.";
+  echo "Missing file Brewfile. Please run 'dot update brew'.";
 fi;
