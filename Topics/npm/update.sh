@@ -1,9 +1,9 @@
 #!/bin/sh
 #
-#   Update the .npmfile based on npm global packages on the local machine.
-#   Add and commit .npmfile.
+#   Update the Npmfile based on npm global packages on the local machine.
+#   Add and commit Npmfile.
 
-echo "npm/update.sh";
+echo "npm/update";
 
 source "$DOT_TOPIC_DIRECTORY/share.sh";
 

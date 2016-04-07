@@ -1,1 +1,3 @@
-echo "cleanup.sh"
+#!/bin/bash
+
+echo "Dot/cleanup"

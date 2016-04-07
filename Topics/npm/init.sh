@@ -2,6 +2,8 @@
 #
 #    To make sure npm or node or iojs was installed
 
+echo "npm/init"
+
 check_for_node () {
   if ! test $(which node); then
     echo "Installing node for you.";
@@ -13,4 +15,4 @@ check_for_node () {
   fi;
 }
 
-check_for_node;
+check_for_node

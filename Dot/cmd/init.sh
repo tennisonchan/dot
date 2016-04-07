@@ -1,33 +1,31 @@
 #!/bin/bash
-# Reset the dotfiles
-# Bundle and backup the dotfiles
+# 1) Check if $HOME/dotfiles exists
+# if so,
+#   i)   Get the info for repo
+#   ii)  Check if users have access right
+# if not,
+#   iii) Create the folder,
+#   iv)  git init
+#   v)   Ask user to create a repo and input the link
+# 2) Create .dotinit with the info
+# 3) Bundle and backup the dotfiles
 
-reset_dotfiles () {
-  if [[ -n $DOT_TOPIC_DIRECTORY ]]; then
-    cat "$DOT_TOPIC_DIRECTORY/.dotlist" | while read file; do
-      echo "remove $DOTFILES_DIRECTORY/$file";
-      if [[ -f $DOTFILES_DIRECTORY/$file ]]; then
-        rm -f $DOTFILES_DIRECTORY/$file;
-      fi;
-    done
+echo "Dot/init"
+
+check_dotfiles_folder () {
+
+}
+
+init () {
+  if [[ -n $DOT_TOPIC ]]; then
+    run_command "init" $DOT_TOPIC;
   else
-    rm -rf $DOTFILES_DIRECTORY;
-    mkdir $DOTFILES_DIRECTORY;
+    all_topics | while read topic; do
+      run_command "init" $topic;
+    done
   fi;
+
+  source "$DOT_DIRECTORY/cmd/bundle.sh";
 }
 
-main () {
-  reset_dotfiles;
-  if [[ -f "$DOT_TOPIC_DIRECTORY/init.sh" ]]; then
-    sh "$DOT_TOPIC_DIRECTORY/init.sh";
-  fi;
-  sh "$DOT_DIRECTORY/cmd/bundle.sh";
-}
-
-echo "Sure you want to reset all dotfiles?";
-select yn in "Yes" "No"; do
-  case $yn in
-    Yes) main; break;;
-    No)  exit;;
-  esac
-done
+init;

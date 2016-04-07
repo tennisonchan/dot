@@ -9,11 +9,9 @@ set +o posix
 chdir() {
   cd "$@" >/dev/null
 }
-
 DOT_BIN_PATH="$(chdir "${0%/*}" && pwd -P)"
 DOT_ROOT="${DOT_BIN_PATH%/*}"
 DOT_DIRECTORY="$DOT_ROOT/Dot"
-DOTFILES_DIRECTORY="$DOT_ROOT/dotfiles"
 DOT_TOPICS_DIRECTORY="$DOT_ROOT/Topics"
 
 # dot init

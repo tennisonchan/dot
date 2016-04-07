@@ -16,10 +16,19 @@ DOT_VERSION="0.0.1"
 #   fi
 # }
 
+load_config() {
+  source "$DOT_DIRECTORY/config"
+
+  if [[ -d "$HOME/dotfiles" ]]; then
+    DOTFILES_DIRECTORY="$HOME/dotfiles";
+  else
+    echo "You are missing the $HOME/dotfiles folder";
+  fi;
+}
+
 commands () {
   DOT_ARG_COUNT="$#"
   DOT_COMMAND="$1"
-  shift
   case "$DOT_COMMAND" in
     ln)          DOT_COMMAND="symlink";;
     link)        DOT_COMMAND="symlink";;
@@ -27,14 +36,15 @@ commands () {
     up)          DOT_COMMAND="update";;
     update)      DOT_COMMAND="update";;
     install)     DOT_COMMAND="install";;
+    config)      DOT_COMMAND="config";;
+    --config)    DOT_COMMAND="config";;
 
     ls)          DOT_COMMAND="list";;
-    environment) DOT_COMMAND="--env";;
-    --config)    DOT_COMMAND="config";;
+    list)          DOT_COMMAND="list";;
   esac
 
   if [[ -f "$DOT_DIRECTORY/cmd/$DOT_COMMAND.sh" ]]; then
-    DOT_BASH_COMMAND="$DOT_DIRECTORY/cmd/$DOT_COMMAND.sh"
+    DOT_BASH_COMMAND_FILE="$DOT_DIRECTORY/cmd/$DOT_COMMAND.sh"
   fi
 }
 
@@ -46,9 +56,22 @@ set_topic () {
   fi;
 }
 
+run_command () {
+  local command=$1
+  local topic=$2
+  if [[ -f "$DOT_TOPICS_DIRECTORY/$topic/$command.sh" ]]; then
+    source "$DOT_TOPICS_DIRECTORY/$topic/$command.sh"
+  fi;
+}
+
+all_topics () {
+  ls $DOT_TOPICS_DIRECTORY
+}
+
+load_config
 commands $@
 set_topic $2
 
-if [[ -n "$DOT_BASH_COMMAND" ]]; then
-  source "$DOT_BASH_COMMAND"
+if [[ -n "$DOT_BASH_COMMAND_FILE" ]]; then
+  source "$DOT_BASH_COMMAND_FILE"
 fi;

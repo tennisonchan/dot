@@ -1,15 +1,17 @@
 #!/bin/sh
 #
-# .npmfile
+# Npmfile
 #   Stores all npm global packages with responding versions
 # init.sh
 #   To make sure npm or node or iojs was installed
 # install.sh
-#   Sync the npm global packages based on .npmfile, regardless if .npmfiles is the latest version or not.
-#   Will not remove installed global packages which is not on .npmfile.
+#   Sync the npm global packages based on Npmfile, regardless if Npmfiles is the latest version or not.
+#   Will not remove installed global packages which is not on Npmfile.
 # update.sh
-#   Update the .npmfile based on npm global packages on the local machine.
-#   Add and commit .npmfile.
+#   Update the Npmfile based on npm global packages on the local machine.
+#   Add and commit Npmfile.
+
+echo "npm/bundle"
 
 source "$DOT_TOPIC_DIRECTORY/share.sh";
 
@@ -17,10 +19,10 @@ bundle () {
   pushd $DOT_TOPIC_DIRECTORY;
 
   if [ -f $NPMFILE_PATH ]; then
-    sh install.sh
+    source install.sh
   else
-    sh update.sh
-    sh install.sh
+    source update.sh
+    source install.sh
   fi;
 
   popd;
