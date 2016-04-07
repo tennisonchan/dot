@@ -4,7 +4,7 @@
 #
 # .brewfilerc
 #   To serve as a config for brew.
-# setup.sh
+# init.sh
 #   To install homebrew based on the OS type.
 # install.sh
 #   To sync the brew formulas based on Brewfile. Will not remove installed formulas which is not on Brewfile.
@@ -13,16 +13,19 @@
 # cleanup.sh
 #   To uninstall all Homebrew formulae not listed in Brewfile.
 
-# DOTFILES_ROOT="$(dirname "$(pwd -P)")"
+source "$DOT_TOPIC_DIRECTORY/share.sh";
 
-BREWFILE_PATH="$(pwd)/Brewfile";
+bundle() {
+  pushd "$DOT_TOPIC_DIRECTORY" > /dev/null;
 
-sh init.sh;
+   if ! test -f $BREWFILE_PATH; then
+    sh update.sh;
+  fi
 
-if test -f $BREWFILE_PATH; then
-  echo "Brewfile exists.";
   sh install.sh;
-else
-  echo "Brewfile doens't exist.";
-  sh update.sh && sh install.sh;
-fi
+  sh symlink.sh;
+
+  popd > /dev/null;
+}
+
+bundle;

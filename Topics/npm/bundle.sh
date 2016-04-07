@@ -11,13 +11,19 @@
 #   Update the .npmfile based on npm global packages on the local machine.
 #   Add and commit .npmfile.
 
-NPMFILE_PATH="$(pwd)/.npmfile"
+source "$DOT_TOPIC_DIRECTORY/share.sh";
 
-sh init.sh
+bundle () {
+  pushd $DOT_TOPIC_DIRECTORY;
 
-if [ -f $NPMFILE_PATH ]; then
-  sh install.sh
-then
-  sh update.sh
-  sh install.sh
-fi;
+  if [ -f $NPMFILE_PATH ]; then
+    sh install.sh
+  else
+    sh update.sh
+    sh install.sh
+  fi;
+
+  popd;
+}
+
+bundle;

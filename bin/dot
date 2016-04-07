@@ -1,18 +1,32 @@
-#!/bin/sh
+#!/bin/bash
 #
 # dot
 #
 # `dot` handles installation, updates, things like that. Run it periodically
 # to make sure you're on the latest and greatest.
+set +o posix
+
+chdir() {
+  cd "$@" >/dev/null
+}
+
+DOT_BIN_PATH="$(chdir "${0%/*}" && pwd -P)"
+DOT_ROOT="${DOT_BIN_PATH%/*}"
+DOT_DIRECTORY="$DOT_ROOT/Dot"
+DOTFILES_DIRECTORY="$DOT_ROOT/dotfiles"
+DOT_TOPICS_DIRECTORY="$DOT_ROOT/Topics"
 
 # dot init
 ## initialize the base for dot
 
-# dot create [module]
+# dot create [topic]
 ## e.g. dot create homebrew
 ##
 
-# dot rm [module]
+# dot rm [topic]
 ## e.g. dot create homebrew
 
-# dot update
+# dot link [topic]
+## To symlink all **.symlink files
+
+source "$DOT_DIRECTORY/dot.sh"
