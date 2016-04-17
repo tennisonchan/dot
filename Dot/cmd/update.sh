@@ -69,7 +69,19 @@ update_dotfiles () {
 git_stash_dotfiles_change() {
   pushd $DOTFILES_DIRECTORY > /dev/null
 
-  git stash;
+  if ! git diff-files --quiet --ignore-submodules; then
+    echo >&2 "cannot update: you have unstaged changes."
+    git diff-files --name-status -r --ignore-submodules >&2
+
+    echo "stash your unstaged changes? [y/n]"
+    read -n 1 action
+
+    if [[ $action == "y" ]]; then
+      git stash
+    else
+      exit 1;
+    fi
+  fi
 
   popd > /dev/null
 }
