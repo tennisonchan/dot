@@ -55,7 +55,6 @@ set_topic () {
   if [[ -n $1 ]] && [[ -d "$DOT_TOPICS_DIRECTORY/$1" ]]; then
     DOT_TOPIC="$1"
     DOT_TOPIC_DIRECTORY="$DOT_TOPICS_DIRECTORY/$1"
-    DOTLIST_PATH="$DOT_TOPIC_DIRECTORY/.dotlist";
   fi;
 }
 

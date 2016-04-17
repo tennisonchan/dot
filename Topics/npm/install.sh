@@ -6,8 +6,6 @@
 source "$DOT_TOPIC_DIRECTORY/share.sh";
 
 if [[ -f $NPMFILE_PATH ]]; then
-  echo $NPMFILE_PATH
-  cat $NPMFILE_PATH
   cat $NPMFILE_PATH | while read line; do
     echo "Installing npm global packages $line"
     npm install -g $line

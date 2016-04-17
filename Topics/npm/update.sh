@@ -5,15 +5,6 @@
 
 source "$DOT_TOPIC_DIRECTORY/share.sh";
 
-reset_dotlist () {
-  cp /dev/null $DOTLIST_PATH;
-}
-
-add_filename_to_dotlist () {
-  local filename="${1##*/}"
-  echo $filename >> $DOTLIST_PATH;
-}
-
 create_npmfile () {
   if [ -f $NPMLIST_FILE_PATH ] && [ "$NPMLIST" == "$(cat $NPMLIST_FILE_PATH)" ]; then
     echo "npmfile is up-to-date."
@@ -24,10 +15,8 @@ create_npmfile () {
       echo "$package@$(npm info $package version)"
     done > $NPMFILE_PATH
 
-    add_filename_to_dotlist $NPMFILE_PATH;
     echo "Updated file Npmfile."
   fi;
 }
 
-reset_dotlist;
 create_npmfile;
