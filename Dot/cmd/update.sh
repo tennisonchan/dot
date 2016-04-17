@@ -90,8 +90,8 @@ git_commit_push () {
   pushd $DOTFILES_DIRECTORY > /dev/null
 
   git add .
-  git commit -m "dot update on $(date)"
-  git push -u origin
+  git commit -m "[$WORKPLACE] dot update on $(date)"
+  git push -u origin $WORKPLACE
 
   popd > /dev/null
 }

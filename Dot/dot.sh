@@ -3,27 +3,23 @@ set +o posix
 
 DOT_VERSION="0.0.1"
 
-git_clone_dotfiles_repo () {
-  pushd "$HOME" > /dev/null
-  git clone $1 $DOTFILES_DIRECTORY > /dev/null
-  popd > /dev/null
-}
-
 check_dotfiles_folder () {
-  if ! [[ -d $DOTFILES_DIRECTORY ]]; then
-    echo "Missing the $DOTFILES_DIRECTORY folder.";
+  local dotfiles_dir=$1
+  if ! [[ -d $dotfiles_dir ]]; then
+    echo "Missing the $dotfiles_dir folder.";
     echo "Please paste your dotfiles repo link here: "
     echo "(example: https://github.com/[username]/dotfiles.git)";
 
-    read DOTFILES_REPO < /dev/tty
-    if [[ -n $DOTFILES_REPO ]]; then
-      git_clone_dotfiles_repo $DOTFILES_REPO
+    read dotfiles_repo < /dev/tty
+    if [[ -n $dotfiles_repo ]]; then
+      git clone $dotfiles_repo $dotfiles_dir > /dev/null
     fi
   fi;
 }
 
 load_config() {
   source "$DOT_DIRECTORY/config"
+  WORKPLACE=$(cd $DOTFILES_DIRECTORY && git symbolic-ref --short HEAD);
 }
 
 commands () {
@@ -71,7 +67,7 @@ all_topics () {
   ls $DOT_TOPICS_DIRECTORY
 }
 
-check_dotfiles_folder
+check_dotfiles_folder $DOTFILES_DIRECTORY
 load_config
 commands $@
 set_topic $2
