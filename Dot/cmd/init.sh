@@ -20,8 +20,7 @@ init () {
       run_command "init" $topic;
     done
   fi;
-
-  source "$DOT_DIRECTORY/cmd/bundle.sh";
 }
 
 init;
+source "$DOT_DIRECTORY/cmd/bundle.sh";
