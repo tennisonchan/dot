@@ -6,11 +6,11 @@ list_all_home_dotfiles () {
 }
 
 update_topic () {
-  local topic_dir=$1 topic=$2
+  local topic=$2
   if [[ -n $topic ]]; then
     run_command "update" $topic;
   else
-    ls $topic_dir | while read topic; do
+    all_topics | while read topic; do
       set_topic $topic;
       run_command "update" $topic;
     done
@@ -97,6 +97,6 @@ git_commit_push () {
 }
 
 git_stash_dotfiles_change
-update_topic $DOT_TOPICS_DIRECTORY $DOT_TOPIC
+update_topic $DOT_TOPIC
 update_dotfiles $DOTFILES_DIRECTORY $HOME
 git_commit_push
