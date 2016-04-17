@@ -20,25 +20,26 @@ workplace_commands () {
   if [[ -n $workplace_name ]]; then
     local workplace_hash=$(return_workplace_hash $workplace_name)
 
-    if [[ -n workplace_hash ]]; then
-      git stash;
-      git checkout $workplace_hash
+    if [[ -n $workplace_hash ]]; then
+      git stash > /dev/null;
+      git checkout $workplace_name
     else
-      # Create a new branch
       git checkout -b $workplace_name
     fi;
-
-    echo $workplace_name > "$DOT_DIRECTORY/WORKPLACE";
   else
     git branch
   fi;
 }
 
-pushd $DOTFILES_DIRECTORY > /dev/null;
+config_commands () {
+  pushd $DOTFILES_DIRECTORY > /dev/null;
 
-local CONFIG_COMMANDS=$1
-case $CONFIG_COMMANDS in
-  workplace)   workplace_commands $2;;
-esac
+  shift
+  case $1 in
+    workplace)   workplace_commands $2;;
+  esac
 
-popd > /dev/null;
+  popd > /dev/null;
+}
+
+config_commands $@
