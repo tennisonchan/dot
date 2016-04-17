@@ -4,24 +4,24 @@ set +o posix
 echo "Dot/update"
 
 list_all_home_dotfiles () {
-  find $HOME \( -type f \) -maxdepth 1 -mindepth 1 -name ".*" ! -name ".dotfiles" ! -name ".Trash" ! -name ".DS_Store"
+  find $1 \( -type f \) -maxdepth 1 -mindepth 1 -name ".*" ! -name ".dotfiles" ! -name ".Trash" ! -name ".DS_Store"
 }
 
 update_topic () {
-  if [[ -n $DOT_TOPIC ]]; then
-    run_command "update" $DOT_TOPIC;
+  local topic_dir=$1 topic=$2
+  if [[ -n $topic ]]; then
+    run_command "update" $topic;
   else
-    ls $DOT_TOPICS_DIRECTORY | while read topic; do
-      set_topic "$topic";
+    ls $topic_dir | while read topic; do
+      set_topic $topic;
       run_command "update" $topic;
     done
   fi;
 }
 
 update_dotfile () {
-  local src=$1 dst="$DOTFILES_DIRECTORY/$dotfile" dotfile=$(basename "$src")
-  local backup=
-  local action=
+  local src=$1 dst=$2 dotfile=$3
+  local backup= action=
 
   if [ $backup_all == "false" ] && [ $skip_all == "false" ]; then
 
@@ -50,7 +50,7 @@ update_dotfile () {
   backup=${backup:-$backup_all}
 
   if [ $backup == "true" ]; then
-    cp -ri $src $dst </dev/tty
+    cp -ri $src $dst < /dev/tty
     echo "copy $dotfile to dotfiles"
   else
     echo "skip $dotfile"
@@ -59,11 +59,34 @@ update_dotfile () {
 
 update_dotfiles () {
   local backup_all=false skip_all=false
+  local from_dir=$1 to_dir=$2
 
-  list_all_home_dotfiles | while read src; do
-    update_dotfile $src;
+  list_all_home_dotfiles $to_dir| while read src; do
+    dotfile=$(basename $src)
+    dst="$from_dir/$dotfile"
+    update_dotfile $src $dst $dotfile;
   done
 }
 
-update_topic
-update_dotfiles
+git_stash_dotfiles_change() {
+  pushd $DOTFILES_DIRECTORY > /dev/null
+
+  git stash;
+
+  popd > /dev/null
+}
+
+git_commit_push () {
+  pushd $DOTFILES_DIRECTORY > /dev/null
+
+  git add .
+  git commit -m "dot update on $(date)"
+  git push -u origin
+
+  popd > /dev/null
+}
+
+git_stash_dotfiles_change
+update_topic $DOT_TOPICS_DIRECTORY $DOT_TOPIC
+update_dotfiles $DOTFILES_DIRECTORY $HOME
+git_commit_push
