@@ -1,8 +1,6 @@
 #!/bin/bash
 set +o posix
 
-echo "Dot/update"
-
 list_all_home_dotfiles () {
   find $1 \( -type f \) -maxdepth 1 -mindepth 1 -name ".*" ! -name ".dotfiles" ! -name ".Trash" ! -name ".DS_Store"
 }
@@ -21,44 +19,44 @@ update_topic () {
 
 update_dotfile () {
   local src=$1 dst=$2 dotfile=$3
-  local backup= action=
+  local update= action=
 
-  if [ $backup_all == "false" ] && [ $skip_all == "false" ]; then
+  if [ $update_all == "false" ] && [ $skip_all == "false" ]; then
 
     if [ $dst == $src ]; then
-      backup=false;
+      update=false;
     else
-      echo "Do you want to copy file: $dotfile to dotfiles?\n\
-      [y]es, [Y]es all, [s]kip, [S]kip all, [skip]?"
-      read -n 1 -s action < /dev/tty
+      echo "Do you want to move file: $dotfile to dotfiles?\n\
+      [y]es, [Y]es all, [s]kip, [S]kip all?"
+      read -n 1 action < /dev/tty
 
-      case "$action" in
+      case $action in
         y)
-          backup=true;;
+          update=true;;
         Y)
-          backup_all=true;;
+          update_all=true;;
         s)
-          backup=false;;
+          update=false;;
         S)
           skip_all=true;;
         *)
-          backup=false;;
+          update=false;;
       esac
     fi
   fi
 
-  backup=${backup:-$backup_all}
+  update=${update:-$update_all}
 
-  if [ $backup == "true" ]; then
-    cp -ri $src $dst < /dev/tty
-    echo "copy $dotfile to dotfiles"
+  if [ $update == "true" ]; then
+    mv -i $src $dst < /dev/tty
+    echo "move $dotfile to dotfiles"
   else
     echo "skip $dotfile"
   fi
 }
 
 update_dotfiles () {
-  local backup_all=false skip_all=false
+  local update_all=false skip_all=false
   local from_dir=$1 to_dir=$2
 
   list_all_home_dotfiles $to_dir| while read src; do
