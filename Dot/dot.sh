@@ -38,6 +38,7 @@ commands () {
     ln)          DOT_COMMAND="symlink";;
     link)        DOT_COMMAND="symlink";;
     symlink)     DOT_COMMAND="symlink";;
+    unlink)      DOT_COMMAND="unlink";;
     config)      DOT_COMMAND="config";;
     --config)    DOT_COMMAND="config";;
     help)        DOT_COMMAND="help";;
