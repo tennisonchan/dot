@@ -3,8 +3,8 @@ set +o posix
 
 echo "Dot/update"
 
-all_home_dotfiles () {
-  find $HOME \( -type d -o -type f \) -maxdepth 1 -mindepth 1 -name ".*" ! -name ".Trash" ! -name ".DS_Store"
+list_all_home_dotfiles () {
+  find $HOME \( -type f \) -maxdepth 1 -mindepth 1 -name ".*" ! -name ".dotfiles" ! -name ".Trash" ! -name ".DS_Store"
 }
 
 update_topic () {
@@ -60,7 +60,7 @@ update_dotfile () {
 update_dotfiles () {
   local backup_all=false skip_all=false
 
-  all_home_dotfiles | while read src; do
+  list_all_home_dotfiles | while read src; do
     update_dotfile $src;
   done
 }
