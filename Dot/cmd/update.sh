@@ -2,7 +2,7 @@
 set +o posix
 
 list_all_home_dotfiles () {
-  find $1 \( -type f \) -maxdepth 1 -mindepth 1 -name ".*" ! -name ".dotfiles" ! -name ".Trash" ! -name ".DS_Store"
+  find $1 \( -type f \) -maxdepth 1 -mindepth 1 -name ".*" ! -name ".dotfiles" ! -name ".Trash" ! -name ".DS_Store" ! -name ".*history"
 }
 
 update_topic () {
