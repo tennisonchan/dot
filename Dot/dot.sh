@@ -28,20 +28,21 @@ load_config() {
 
 commands () {
   DOT_ARG_COUNT="$#"
-  DOT_COMMAND="$1"
-  case "$DOT_COMMAND" in
+  case "$1" in
     init)        DOT_COMMAND="init";;
+    bundle)      DOT_COMMAND="bundle";;
+    install)     DOT_COMMAND="install";;
+    i)           DOT_COMMAND="install";;
+    up)          DOT_COMMAND="update";;
+    update)      DOT_COMMAND="update";;
     ln)          DOT_COMMAND="symlink";;
     link)        DOT_COMMAND="symlink";;
     symlink)     DOT_COMMAND="symlink";;
-    up)          DOT_COMMAND="update";;
-    update)      DOT_COMMAND="update";;
-    install)     DOT_COMMAND="install";;
     config)      DOT_COMMAND="config";;
     --config)    DOT_COMMAND="config";;
-
-    ls)          DOT_COMMAND="list";;
-    list)        DOT_COMMAND="list";;
+    help)        DOT_COMMAND="help";;
+    -h)          DOT_COMMAND="help";;
+    --help)      DOT_COMMAND="help";;
     *)           DOT_COMMAND="help";;
   esac
 
