@@ -5,7 +5,7 @@
 source "$DOT_TOPIC_DIRECTORY/share.sh";
 
 install () {
-  pushd "$DOTFILES_DIRECTORY";
+  pushd "$DOTFILES_DIRECTORY" > /dev/null;
 
   if test -f $BREWFILE_PATH; then
     brew bundle install;
@@ -13,7 +13,7 @@ install () {
     echo "Missing file Brewfile. Please run 'dot update brew'.";
   fi;
 
-  popd;
+  popd > /dev/null;
 }
 
 install

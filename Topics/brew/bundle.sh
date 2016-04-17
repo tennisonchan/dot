@@ -19,10 +19,10 @@ bundle() {
   pushd "$DOT_TOPIC_DIRECTORY" > /dev/null;
 
   if ! [[ -f $BREWFILE_PATH ]]; then
-    sh update.sh;
+    source update.sh;
   fi
 
-  sh install.sh;
+  source install.sh;
 
   popd > /dev/null;
 }

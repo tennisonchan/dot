@@ -4,7 +4,11 @@
 
 # Check for Homebrew
 check_for_brew () {
-  if ! test $(which brew); then
+  if test $(which brew); then
+    echo "Homebrew Installed";
+    brew -v;
+    brew update;
+  else
     echo "Installing Homebrew for you.";
 
     # Install the correct homebrew for each OS type
@@ -13,10 +17,6 @@ check_for_brew () {
     elif test "$(expr substr $(uname -s) 1 5)" = "Linux"; then
       ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)";
     fi;
-
-  else
-    echo "Homebrew Installed";
-    brew -v;
   fi;
 }
 

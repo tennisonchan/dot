@@ -3,21 +3,21 @@ set +o posix
 
 DOT_VERSION="0.0.1"
 
-setup_dotfiles_repo () {
+git_clone_dotfiles_repo () {
   pushd "$HOME" > /dev/null
-  git clone $DOTFILES_REPO $DOTFILES_DIRECTORY > /dev/null
+  git clone $1 $DOTFILES_DIRECTORY > /dev/null
   popd > /dev/null
 }
 
 check_dotfiles_folder () {
   if ! [[ -d $DOTFILES_DIRECTORY ]]; then
-    echo "You are missing the $HOME/dotfiles folder.";
+    echo "Missing the $DOTFILES_DIRECTORY folder.";
     echo "Please paste your dotfiles repo link here: "
     echo "(example: https://github.com/[username]/dotfiles.git)";
 
     read DOTFILES_REPO < /dev/tty
     if [[ -n $DOTFILES_REPO ]]; then
-      setup_dotfiles_repo $DOTFILES_REPO
+      git_clone_dotfiles_repo $DOTFILES_REPO
     fi
   fi;
 }
@@ -30,6 +30,7 @@ commands () {
   DOT_ARG_COUNT="$#"
   DOT_COMMAND="$1"
   case "$DOT_COMMAND" in
+    init)        DOT_COMMAND="init";;
     ln)          DOT_COMMAND="symlink";;
     link)        DOT_COMMAND="symlink";;
     symlink)     DOT_COMMAND="symlink";;
