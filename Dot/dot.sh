@@ -27,7 +27,6 @@ check_dotfiles_folder () {
 }
 
 load_config() {
-  source "$DOT_DIRECTORY/config"
   WORKPLACE=$(cd $DOTFILES_DIRECTORY && git symbolic-ref --short HEAD);
 }
 
