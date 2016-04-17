@@ -2,7 +2,7 @@
 set +o posix
 
 list_all_dotfiles () {
-  find $1 -maxdepth 1 -mindepth 1 -name ".*"
+  find $1 -maxdepth 1 -mindepth 1 -name ".*" ! -name ".git"
 }
 
 symlink_dotfiles () {
@@ -49,7 +49,7 @@ link_file () {
           S )
             skip_all=true;;
           * )
-            ;;
+            skip=true;;
         esac
       fi
     fi
