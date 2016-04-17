@@ -1,15 +1,15 @@
 #!/bin/bash
+set +o posix
 
 source "$DOT_TOPIC_DIRECTORY/share.sh";
 
 update_Brewfile () {
-  pushd $DOTFILES_DIRECTORY > /dev/null;
+  local brewfile_path=$1
 
-  rm -f "./Brewfile";
-  brew bundle dump;
-
-  echo "Updated Brewfile.";
-  popd > /dev/null;
+  if ! [[ -f $brewfile_path ]]; then
+    brew bundle dump --force --file="$brewfile_path";
+    echo "Updated Brewfile.";
+  fi
 }
 
-update_Brewfile;
+update_Brewfile $BREWFILE_PATH;

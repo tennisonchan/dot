@@ -1,13 +1,11 @@
 #!/bin/sh
-#
-#   To uninstall all Homebrew formulae not listed in Brewfile
+set +o posix
+
+source "$DOT_TOPIC_DIRECTORY/share.sh";
 
 brew_bundle_cleanup () {
-  pushd $DOTFILES_DIRECTORY > /dev/null;
-
-  brew bundle cleanup;
-
-  popd > /dev/null;
+  local brewfile_path=$1
+  brew bundle cleanup --file="$brewfile_path";
 }
 
-brew_bundle_cleanup;
+brew_bundle_cleanup $BREWFILE_PATH;

@@ -64,10 +64,10 @@ set_topic () {
 }
 
 run_command () {
-  local command=$1
-  local topic=$2
+  local command=$1 topic=$2
   if [[ -f "$DOT_TOPICS_DIRECTORY/$topic/$command.sh" ]]; then
-    source "$DOT_TOPICS_DIRECTORY/$topic/$command.sh"
+    set_topic $topic;
+    source "$DOT_TOPICS_DIRECTORY/$topic/$command.sh";
   fi;
 }
 

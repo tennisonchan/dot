@@ -15,16 +15,5 @@
 
 source "$DOT_TOPIC_DIRECTORY/share.sh";
 
-bundle() {
-  pushd "$DOT_TOPIC_DIRECTORY" > /dev/null;
-
-  if ! [[ -f $BREWFILE_PATH ]]; then
-    source update.sh;
-  fi
-
-  source install.sh;
-
-  popd > /dev/null;
-}
-
-bundle;
+source "$DOT_TOPIC_DIRECTORY/update.sh";
+source "$DOT_TOPIC_DIRECTORY/install.sh";

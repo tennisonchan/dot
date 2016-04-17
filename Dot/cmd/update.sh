@@ -6,12 +6,11 @@ list_all_home_dotfiles () {
 }
 
 update_topic () {
-  local topic=$2
+  local topic=$1
   if [[ -n $topic ]]; then
     run_command "update" $topic;
   else
     all_topics | while read topic; do
-      set_topic $topic;
       run_command "update" $topic;
     done
   fi;
@@ -70,8 +69,8 @@ git_stash_dotfiles_change() {
   pushd $DOTFILES_DIRECTORY > /dev/null
 
   if ! git diff-files --quiet --ignore-submodules; then
-    echo >&2 "cannot update: you have unstaged changes."
-    git diff-files --name-status -r --ignore-submodules >&2
+    echo "cannot update: you have unstaged changes" 1>&2
+    git diff-files --name-status -r --ignore-submodules 1>&2
 
     echo "stash your unstaged changes? [y/n]"
     read -n 1 action
@@ -98,5 +97,7 @@ git_commit_push () {
 
 git_stash_dotfiles_change
 update_topic $DOT_TOPIC
-update_dotfiles $DOTFILES_DIRECTORY $HOME
+if ! [[ -n $DOT_TOPIC ]]; then
+  update_dotfiles $DOTFILES_DIRECTORY $HOME
+fi;
 git_commit_push

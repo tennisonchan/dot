@@ -1,19 +1,16 @@
 #!/bin/sh
-#
-#   To sync the brew formulas based on Brewfile. Will not remove installed formulas which is not on Brewfile.
+set +o posix
 
 source "$DOT_TOPIC_DIRECTORY/share.sh";
 
-install () {
-  pushd "$DOTFILES_DIRECTORY" > /dev/null;
+install_brew_formulas () {
+  local brewfile_path=$1
 
-  if test -f $BREWFILE_PATH; then
-    brew bundle install;
+  if ! [[ -f $brewfile_path ]]; then
+    brew bundle install --file="$brewfile_path";
   else
-    echo "Missing file Brewfile. Please run 'dot update brew'.";
+    echo "Missing file Brewfile. Please run 'dot update brew'." 1>&2;
   fi;
-
-  popd > /dev/null;
 }
 
-install
+install_brew_formulas $BREWFILE_PATH;
