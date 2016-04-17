@@ -12,10 +12,6 @@
 
 echo "Dot/init"
 
-check_dotfiles_folder () {
-
-}
-
 init () {
   if [[ -n $DOT_TOPIC ]]; then
     run_command "init" $DOT_TOPIC;

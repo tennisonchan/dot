@@ -18,12 +18,11 @@ source "$DOT_TOPIC_DIRECTORY/share.sh";
 bundle() {
   pushd "$DOT_TOPIC_DIRECTORY" > /dev/null;
 
-   if ! test -f $BREWFILE_PATH; then
+  if ! [[ -f $BREWFILE_PATH ]]; then
     sh update.sh;
   fi
 
   sh install.sh;
-  sh symlink.sh;
 
   popd > /dev/null;
 }

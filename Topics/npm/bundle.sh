@@ -16,16 +16,15 @@ echo "npm/bundle"
 source "$DOT_TOPIC_DIRECTORY/share.sh";
 
 bundle () {
-  pushd $DOT_TOPIC_DIRECTORY;
+  pushd $DOT_TOPIC_DIRECTORY > /dev/null
 
-  if [ -f $NPMFILE_PATH ]; then
-    source install.sh
-  else
+  if ! [[ -f $NPMFILE_PATH ]]; then
     source update.sh
-    source install.sh
   fi;
 
-  popd;
+  source install.sh
+
+  popd > /dev/null
 }
 
 bundle;

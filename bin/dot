@@ -13,6 +13,8 @@ DOT_BIN_PATH="$(chdir "${0%/*}" && pwd -P)"
 DOT_ROOT="${DOT_BIN_PATH%/*}"
 DOT_DIRECTORY="$DOT_ROOT/Dot"
 DOT_TOPICS_DIRECTORY="$DOT_ROOT/Topics"
+# $HOME/.dotfiles may not exist
+DOTFILES_DIRECTORY="$HOME/.dotfiles"
 
 # dot init
 ## initialize the base for dot

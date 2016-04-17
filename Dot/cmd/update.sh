@@ -19,7 +19,7 @@ update_topic () {
 }
 
 update_dotfile () {
-  local src=$1 dotfile=$(basename "$src") dst="$DOTFILES_DIRECTORY/$dotfile"
+  local src=$1 dst="$DOTFILES_DIRECTORY/$dotfile" dotfile=$(basename "$src")
   local backup=
   local action=
 
@@ -30,7 +30,7 @@ update_dotfile () {
     else
       echo "Do you want to copy file: $dotfile to dotfiles?\n\
       [y]es, [Y]es all, [s]kip, [S]kip all, [skip]?"
-      read -n 1 -s action </dev/tty
+      read -n 1 -s action < /dev/tty
 
       case "$action" in
         y)

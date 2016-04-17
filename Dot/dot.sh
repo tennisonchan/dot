@@ -3,27 +3,27 @@ set +o posix
 
 DOT_VERSION="0.0.1"
 
-# is_OSX () {
-#   if [[ "$(uname -s)" = "Darwin" ]]; then
-#     DOT_OSX="1"
-#   fi;
-# }
-#
-# force_locale () {
-#   # Force UTF-8 to avoid encoding issues for users with broken locale settings.
-#   if [[ "$(locale charmap 2> /dev/null)" != "UTF-8" ]]; then
-#     export LC_ALL="en_US.UTF-8"
-#   fi
-# }
+setup_dotfiles_repo () {
+  pushd "$HOME" > /dev/null
+  git clone $DOTFILES_REPO $DOTFILES_DIRECTORY > /dev/null
+  popd > /dev/null
+}
+
+check_dotfiles_folder () {
+  if ! [[ -d $DOTFILES_DIRECTORY ]]; then
+    echo "You are missing the $HOME/dotfiles folder.";
+    echo "Please paste your dotfiles repo link here: "
+    echo "(example: https://github.com/[username]/dotfiles.git)";
+
+    read DOTFILES_REPO < /dev/tty
+    if [[ -n $DOTFILES_REPO ]]; then
+      setup_dotfiles_repo $DOTFILES_REPO
+    fi
+  fi;
+}
 
 load_config() {
   source "$DOT_DIRECTORY/config"
-
-  if [[ -d "$HOME/dotfiles" ]]; then
-    DOTFILES_DIRECTORY="$HOME/dotfiles";
-  else
-    echo "You are missing the $HOME/dotfiles folder";
-  fi;
 }
 
 commands () {
@@ -40,7 +40,8 @@ commands () {
     --config)    DOT_COMMAND="config";;
 
     ls)          DOT_COMMAND="list";;
-    list)          DOT_COMMAND="list";;
+    list)        DOT_COMMAND="list";;
+    *)           DOT_COMMAND="help";;
   esac
 
   if [[ -f "$DOT_DIRECTORY/cmd/$DOT_COMMAND.sh" ]]; then
@@ -68,6 +69,7 @@ all_topics () {
   ls $DOT_TOPICS_DIRECTORY
 }
 
+check_dotfiles_folder
 load_config
 commands $@
 set_topic $2
