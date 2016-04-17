@@ -1,7 +1,5 @@
 #!/bin/bash
 
-echo "Dot/install"
-
 if [[ -n $DOT_TOPIC ]]; then
   run_command "install" $DOT_TOPIC;
 else

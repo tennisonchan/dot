@@ -1,9 +1,4 @@
 #!/bin/bash
-#
-# dot
-#
-# `dot` handles installation, updates, things like that. Run it periodically
-# to make sure you're on the latest and greatest.
 set +o posix
 
 chdir() {
@@ -15,18 +10,5 @@ DOT_DIRECTORY="$DOT_ROOT/Dot"
 DOT_TOPICS_DIRECTORY="$DOT_ROOT/Topics"
 # $HOME/.dotfiles may not exist
 DOTFILES_DIRECTORY="$HOME/.dotfiles"
-
-# dot init
-## initialize the base for dot
-
-# dot create [topic]
-## e.g. dot create homebrew
-##
-
-# dot rm [topic]
-## e.g. dot create homebrew
-
-# dot link [topic]
-## To symlink all **.symlink files
 
 source "$DOT_DIRECTORY/dot.sh"

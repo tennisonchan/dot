@@ -1,14 +1,5 @@
 #!/bin/bash
-# To set a new workplace, if workplace does not exist yet
-# dot config workplace [new workplace name]
-
-# To set the workplace as current workflow, if workplace exists
-# dot config workplace [exists workplace name]
-
-# To return all the workplaces
-# dot config workplace
-
-echo "Dot/config"
+set +o posix
 
 return_workplace_hash () {
   git rev-parse --verify --quiet $1
