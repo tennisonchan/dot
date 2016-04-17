@@ -2,8 +2,6 @@
 #
 #    To make sure npm or node or iojs was installed
 
-echo "npm/init"
-
 check_for_node () {
   if test $(which node); then
     echo "npm installed";

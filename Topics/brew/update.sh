@@ -22,22 +22,5 @@ update_Brewfile () {
   popd > /dev/null;
 }
 
-update_dotfile () {
-  local filename="$1";
-  local ORIGINAL_FILE="$HOME/$filename";
-
-  if [[ -f $ORIGINAL_FILE ]]; then
-    cp $ORIGINAL_FILE $DOTFILES_DIRECTORY;
-    add_filename_to_dotlist $ORIGINAL_FILE;
-  fi;
-}
-
-update_dotfiles () {
-  echo ".brewfilerc" | while read filename; do
-    update_dotfile $filename;
-  done
-}
-
 reset_dotlist;
 update_Brewfile;
-update_dotfiles;
