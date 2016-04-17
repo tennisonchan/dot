@@ -5,16 +5,25 @@ DOT_VERSION="0.0.1"
 
 check_dotfiles_folder () {
   local dotfiles_dir=$1
+  local status=$?
+
   if ! [[ -d $dotfiles_dir ]]; then
-    echo "Missing the $dotfiles_dir folder.";
+    echo "Missing the $dotfiles_dir folder." 1>&2
     echo "Please paste your dotfiles repo link here: "
-    echo "(example: https://github.com/[username]/dotfiles.git)";
+    echo "(example: git@github.com:[username]/dotfiles.git)"
 
     read dotfiles_repo < /dev/tty
     if [[ -n $dotfiles_repo ]]; then
       git clone $dotfiles_repo $dotfiles_dir > /dev/null
+      status=$?
+    else
+      status="1"
     fi
   fi;
+
+  if ! [[ "$status" == "0" ]]; then
+    exit 1;
+  fi
 }
 
 load_config() {
