@@ -21,9 +21,9 @@ update_dotfile () {
   local src=$1 dst=$2 dotfile=$3
   local update= action=
 
-  if [ $update_all == "false" ] && [ $skip_all == "false" ]; then
+  if [ "$update_all" == "false" ] && [ "$skip_all" == "false" ]; then
 
-    if [ $dst == $src ]; then
+    if [ "$dst" == "$src" ]; then
       update=false;
     else
       echo "Do you want to move file: $dotfile to dotfiles?\n\
@@ -47,7 +47,7 @@ update_dotfile () {
 
   update=${update:-$update_all}
 
-  if [ $update == "true" ]; then
+  if [ "$update" == "true" ]; then
     mv -i $src $dst < /dev/tty
     echo "move $dotfile to dotfiles"
   else
@@ -76,7 +76,7 @@ git_stash_dotfiles_change() {
     echo "stash your unstaged changes? [y/n]"
     read -n 1 action
 
-    if [[ $action == "y" ]]; then
+    if [[ "$action" == "y" ]]; then
       git stash
     else
       exit 1;

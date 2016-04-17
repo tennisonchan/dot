@@ -11,7 +11,7 @@ check_for_node () {
     echo "Installing node for you.";
     message=$(brew install node 2>&1);
 
-    if [[ $message == *"not linked" ]]; then
+    if [[ "$message" == *"not linked" ]]; then
       brew link node
     fi;
   fi;

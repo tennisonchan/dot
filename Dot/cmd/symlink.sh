@@ -57,17 +57,17 @@ link_file () {
     overwrite=${overwrite:-$overwrite_all}
     skip=${skip:-$skip_all}
 
-    if [ $overwrite == "true" ]; then
+    if [ "$overwrite" == "true" ]; then
       rm -rf $dst
       echo "removed $dst"
     fi
 
-    if [ $skip == "true" ]; then
+    if [ "$skip" == "true" ]; then
       echo "skipped $src"
     fi
   fi
 
-  if [ $skip != "true" ]; then
+  if [ "$skip" != "true" ]; then
     ln -s $src $dst
     echo "linked $(basename $src) to HOME"
   fi
