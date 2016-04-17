@@ -35,7 +35,7 @@ link_file () {
       if [ "$currentSrc" == "$src" ]; then
         skip=true;
       else
-        echo "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
+        echo "Symlink file already exists, $(basename $src), what do you want to do?\n\
         [s]kip, [S]kip all, [o]verwrite, [O]verwrite all?"
         read -n 1 action < /dev/tty;
 

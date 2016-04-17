@@ -23,8 +23,8 @@ load_config() {
 }
 
 commands () {
-  DOT_ARG_COUNT="$#"
-  case "$1" in
+  DOT_ARG_COUNT=$#
+  case $1 in
     init)        DOT_COMMAND="init";;
     bundle)      DOT_COMMAND="bundle";;
     install)     DOT_COMMAND="install";;
@@ -50,7 +50,7 @@ commands () {
 
 set_topic () {
   if [[ -n $1 ]] && [[ -d "$DOT_TOPICS_DIRECTORY/$1" ]]; then
-    DOT_TOPIC="$1"
+    DOT_TOPIC=$1
     DOT_TOPIC_DIRECTORY="$DOT_TOPICS_DIRECTORY/$1"
   fi;
 }
@@ -72,6 +72,6 @@ load_config
 commands $@
 set_topic $2
 
-if [[ -n "$DOT_BASH_COMMAND_FILE" ]]; then
-  source "$DOT_BASH_COMMAND_FILE"
+if [[ -n $DOT_BASH_COMMAND_FILE ]]; then
+  source $DOT_BASH_COMMAND_FILE
 fi;

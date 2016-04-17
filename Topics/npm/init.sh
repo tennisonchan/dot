@@ -9,7 +9,7 @@ check_for_node () {
     npm update;
   else
     echo "Installing node for you.";
-    message=$(brew install node 2 > &1);
+    message=$(brew install node 2>&1);
 
     if [[ $message == *"not linked" ]]; then
       brew link node
