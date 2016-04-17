@@ -1,7 +1,7 @@
 #!/bin/bash
 set +o posix
 
-DOT_VERSION="0.0.1"
+DOT_VERSION="0.1.0"
 
 check_dotfiles_folder () {
   local dotfiles_dir=$1
