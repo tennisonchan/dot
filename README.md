@@ -1,37 +1,31 @@
-# Dot [WIP]
+# Dot
 Simply a command to backup, restore, and sync the prefs and settings for your toolbox.
 
 ### Get Start
 ```sh
-# To install dot via git clone
-git clone git@github.com:tennisonchan/dot.git
-# Or install dot via brew
+# Install dot via brew
 brew install dot
 
-# To initialize, start backing up to the dotfiles and then symlink files to $HOME
+# For the first time to backup all dotfiles and packages
+# To initialize, start backing up to the dotfiles and then symlink them to $HOME
 dot init
-```
 
-###
-```sh
-#
-dot init
+# Every time you need to update you dotfiles and packages
+# To update all dotfiles and packages if there is no backup yet
+dot update
+
+# create a new workplace, which is a branch on dotfiles
+dot config workplace [workplace_name]
+
+# Whenever you have a new local machine
+# first clone your dotfiles repo on $HOME
+dot bundle
 ```
 
 ### Topical And Structure
-Everything is built around topics. For example, `brew` and `npm`, they are topics.
-Each topic has the basic block to handle different tasks.
-```sh
-# To install the related software, reset all the backups and restore the dotfiles by running bundle
-init.sh
-# To start the whole cycle of update > install > symlink
-bundle.sh
-# For brew and npm, to install the formulas or packages based on the Brewfile and Npmfile
-install.sh
-# To update / sync the dotfiles to the `dot/dotfiles` and update files like Brewfile and Npmfile
-update.sh
-# To symlink certain files in `dot/dotfiles`to $HOME
-symlink.sh
-```
+Dot manages the dotfiles, it also keeps track on other package managers, like `brew` and `npm`, for you.
+
+For `brew`, Dot uses [homebrew-bundle](https://github.com/Homebrew/homebrew-bundle) to generate `.Brewfile` to store all your brew formulas and setting.
+For `npm`, Dot generate a file called `Npmfile`, which is your global packages in json formate, to keep track on all your global npm packages.
 
 If you're adding a new area to your forked dotfiles — say, "vim" — you can simply add a `vim` directory in the folder `Topics`.
