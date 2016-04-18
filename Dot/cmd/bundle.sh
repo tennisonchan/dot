@@ -1,11 +1,12 @@
 #!/bin/bash
 
 bundle_on_topics () {
-  if [[ -n $DOT_TOPIC ]]; then
-    run_command "bundle" $DOT_TOPIC
+  local topic=$1
+  if [[ -n $topic ]]; then
+    run_command "bundle" $topic
   fi;
 }
 
-bundle_on_topics
+bundle_on_topics $DOT_TOPIC;
 source "$DOT_DIRECTORY/cmd/update.sh";
 source "$DOT_DIRECTORY/cmd/symlink.sh";

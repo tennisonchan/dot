@@ -6,6 +6,8 @@ return_workplace_hash () {
 }
 
 workplace_commands () {
+  pushd $DOTFILES_DIRECTORY > /dev/null;
+
   local workplace_name=$1
 
   if [[ -n $workplace_name ]]; then
@@ -20,17 +22,14 @@ workplace_commands () {
   else
     git branch
   fi;
+
+  popd > /dev/null;
 }
 
 config_commands () {
-  pushd $DOTFILES_DIRECTORY > /dev/null;
-
-  shift
-  case $1 in
-    workplace)   workplace_commands $2;;
+  case $2 in
+    workplace)   workplace_commands $3;;
   esac
-
-  popd > /dev/null;
 }
 
 config_commands $@

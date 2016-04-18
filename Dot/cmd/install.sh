@@ -1,10 +1,16 @@
 #!/bin/bash
 set +o posix
 
-if [[ -n $DOT_TOPIC ]]; then
-  run_command "install" $DOT_TOPIC;
-else
-  ls $DOT_TOPICS_DIRECTORY | while read topic; do
+install_for_each_topic () {
+  local topic=$1
+
+  if [[ -n $topic ]]; then
     run_command "install" $topic;
-  done
-fi;
+  else
+    all_topics | while read topic; do
+      run_command "install" $topic;
+    done
+  fi;
+}
+
+install_for_each_topic $DOT_TOPIC;

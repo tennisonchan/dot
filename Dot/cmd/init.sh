@@ -2,8 +2,10 @@
 set +o posix
 
 run_init_on_each_topic () {
-  if [[ -n $DOT_TOPIC ]]; then
-    run_command "init" $DOT_TOPIC;
+  local topic=$1
+
+  if [[ -n $topic ]]; then
+    run_command "init" $topic;
   else
     all_topics | while read topic; do
       echo "Do you want to initialize for $topic? [y/n]"
@@ -15,5 +17,5 @@ run_init_on_each_topic () {
   fi;
 }
 
-run_init_on_each_topic;
+run_init_on_each_topic $DOT_TOPIC;
 source "$DOT_DIRECTORY/cmd/bundle.sh";
