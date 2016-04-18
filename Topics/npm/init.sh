@@ -1,6 +1,5 @@
 # !/bin/sh
-#
-#    To make sure npm or node or iojs was installed
+set +o posix
 
 check_for_node () {
   if test $(which node); then
@@ -18,3 +17,4 @@ check_for_node () {
 }
 
 check_for_node
+source "$DOT_TOPIC_DIRECTORY/bundle.sh";

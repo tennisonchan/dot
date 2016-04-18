@@ -1,7 +1,5 @@
 # !/bin/sh
-#
-#   Sync the npm global packages based on Npmfile, regardless if Npmfiles is the latest version or not.
-#   Will not remove installed global packages which is not on Npmfile.
+set +o posix
 
 source "$DOT_TOPIC_DIRECTORY/share.sh";
 
@@ -17,4 +15,3 @@ install_npm_packages () {
 }
 
 install_npm_packages
-source "$DOT_TOPIC_DIRECTORY/bundle.sh";
