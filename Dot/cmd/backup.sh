@@ -13,7 +13,8 @@ backup_on_topic () {
 }
 
 backup_dotfile () {
-  local src=$1 dst=$2 dotfile=$3
+  local src=$1 dst=$2
+  local dotfile="$(basename $src)"
   local backup= action=
 
   if [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]; then
@@ -55,7 +56,6 @@ backup_dotfiles () {
   local from_dir=$1 to_dir=$2
 
   list_all_home_dotfiles $to_dir| while read src; do
-    dotfile=$(basename $src)
     dst="$from_dir/$dotfile"
     backup_dotfile $src $dst $dotfile;
   done
