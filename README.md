@@ -3,7 +3,8 @@ Simply a command to backup, restore, and sync the prefs and settings for your to
 
 ### Get Start
 ```sh
-# Install dot via brew
+# tap and install dot via brew
+brew tap tennisonchan/dot
 brew install dot
 
 # For the first time to backup all dotfiles and packages
