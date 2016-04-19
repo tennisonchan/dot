@@ -10,9 +10,9 @@ brew install dot
 # To initialize, start backing up to the dotfiles and then symlink them to $HOME
 dot init
 
-# Every time you need to update you dotfiles and packages
-# To update all dotfiles and packages if there is no backup yet
-dot update
+# Every time you need to backup you dotfiles and packages
+# To backup all dotfiles and packages if there is no backup yet
+dot backup
 
 # create a new workplace, which is a branch on dotfiles
 dot config workplace [workplace_name]

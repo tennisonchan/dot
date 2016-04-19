@@ -37,8 +37,7 @@ commands () {
     bundle)      DOT_COMMAND="bundle";;
     install)     DOT_COMMAND="install";;
     i)           DOT_COMMAND="install";;
-    up)          DOT_COMMAND="update";;
-    update)      DOT_COMMAND="update";;
+    backup)      DOT_COMMAND="backup";;
     ln)          DOT_COMMAND="symlink";;
     link)        DOT_COMMAND="symlink";;
     symlink)     DOT_COMMAND="symlink";;

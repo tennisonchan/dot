@@ -5,25 +5,25 @@ list_all_home_dotfiles () {
   find $1 \( -type f \) -maxdepth 1 -mindepth 1 -name ".*" ! -name ".dotfiles" ! -name ".Trash" ! -name ".DS_Store" ! -name ".*history"
 }
 
-update_topic () {
+backup_on_topic () {
   local topic=$1
   if [[ -n $topic ]]; then
-    run_command "update" $topic;
+    run_command "backup" $topic;
   else
     all_topics | while read topic; do
-      run_command "update" $topic;
+      run_command "backup" $topic;
     done
   fi;
 }
 
-update_dotfile () {
+backup_dotfile () {
   local src=$1 dst=$2 dotfile=$3
-  local update= action=
+  local backup= action=
 
-  if [ "$update_all" == "false" ] && [ "$skip_all" == "false" ]; then
+  if [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]; then
 
     if [ "$dst" == "$src" ]; then
-      update=false;
+      backup=false;
     else
       echo "Do you want to move file: $dotfile to dotfiles?\n\
       [y]es, [Y]es all, [s]kip, [S]kip all?"
@@ -31,22 +31,22 @@ update_dotfile () {
 
       case $action in
         y)
-          update=true;;
+          backup=true;;
         Y)
-          update_all=true;;
+          backup_all=true;;
         s)
-          update=false;;
+          backup=false;;
         S)
           skip_all=true;;
         *)
-          update=false;;
+          backup=false;;
       esac
     fi
   fi
 
-  update=${update:-$update_all}
+  backup=${backup:-$backup_all}
 
-  if [ "$update" == "true" ]; then
+  if [ "$backup" == "true" ]; then
     mv -i $src $dst < /dev/tty
     echo "move $dotfile to dotfiles"
   else
@@ -54,14 +54,14 @@ update_dotfile () {
   fi
 }
 
-update_dotfiles () {
-  local update_all=false skip_all=false
+backup_dotfiles () {
+  local backup_all=false skip_all=false
   local from_dir=$1 to_dir=$2
 
   list_all_home_dotfiles $to_dir| while read src; do
     dotfile=$(basename $src)
     dst="$from_dir/$dotfile"
-    update_dotfile $src $dst $dotfile;
+    backup_dotfile $src $dst $dotfile;
   done
 }
 
@@ -69,7 +69,7 @@ git_stash_dotfiles_change() {
   pushd $DOTFILES_DIRECTORY > /dev/null
 
   if ! git diff-files --quiet --ignore-submodules; then
-    echo "cannot update: you have unstaged changes" 1>&2
+    echo "cannot push the backup: you have unstaged changes" 1>&2
     git diff-files --name-status -r --ignore-submodules 1>&2
 
     echo "stash your unstaged changes? [y/n]"
@@ -89,15 +89,15 @@ git_commit_push () {
   pushd $DOTFILES_DIRECTORY > /dev/null
 
   git add .
-  git commit -m "[$WORKPLACE] dot update on $(date)"
+  git commit -m "[$WORKPLACE] dot backup on $(date)"
   git push -u origin $WORKPLACE
 
   popd > /dev/null
 }
 
 git_stash_dotfiles_change
-update_topic $DOT_TOPIC
+backup_on_topic $DOT_TOPIC
 if ! [[ -n $DOT_TOPIC ]]; then
-  update_dotfiles $DOTFILES_DIRECTORY $HOME
+  backup_dotfiles $DOTFILES_DIRECTORY $HOME
 fi;
 git_commit_push

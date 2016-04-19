@@ -7,13 +7,13 @@
 # install.sh
 #   Sync the npm global packages based on Npmfile, regardless if Npmfiles is the latest version or not.
 #   Will not remove installed global packages which is not on Npmfile.
-# update.sh
-#   Update the Npmfile based on npm global packages on the local machine.
+# backup.sh
+#   To backup the Npmfile based on npm global packages on the local machine.
 #   Add and commit Npmfile.
 
 source "$DOT_TOPIC_DIRECTORY/share.sh";
 
 if ! [[ -f $NPMFILE_PATH ]]; then
-  source "$DOT_TOPIC_DIRECTORY/update.sh";
+  source "$DOT_TOPIC_DIRECTORY/backup.sh";
 fi
 source "$DOT_TOPIC_DIRECTORY/install.sh";

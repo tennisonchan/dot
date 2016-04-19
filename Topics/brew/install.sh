@@ -9,8 +9,9 @@ install_brew_formulas () {
   if ! [[ -f $brewfile_path ]]; then
     brew bundle install --file="$brewfile_path";
   else
-    echo "Missing file Brewfile. Please run 'dot update brew'." 1>&2;
+    echo "Missing file Brewfile. Please run 'dot backup brew'." 1>&2;
   fi;
 }
 
+brew update
 install_brew_formulas $BREWFILE_PATH;

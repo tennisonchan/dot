@@ -15,7 +15,7 @@ install_npm_packages () {
       npm install -g $line
     done
   else
-    echo "Missing file Npmfile. Please run 'dot update npm'"
+    echo "Missing file Npmfile. Please run 'dot backup npm'"
   fi;
 }
 
