@@ -1,8 +1,6 @@
 #!/bin/bash
 set +o posix
 
-echo "Dot/unlink"
-
 list_all_linked_dotfiles () {
   find $1 -type l -maxdepth 1 -mindepth 1 -name ".*"
 }

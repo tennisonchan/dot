@@ -97,3 +97,5 @@ if ! [[ -n $DOT_TOPIC ]]; then
   backup_dotfiles $DOTFILES_DIRECTORY $HOME
 fi;
 git_commit_push
+
+source "$DOT_DIRECTORY/cmd/symlink.sh";

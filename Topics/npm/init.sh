@@ -7,7 +7,7 @@ check_for_node () {
     npm version;
     npm update;
   else
-    echo "Installing node for you.";
+    echo "Installing node for you";
     message=$(brew install node 2>&1);
 
     if [[ "$message" == *"not linked" ]]; then

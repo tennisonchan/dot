@@ -1,4 +1,5 @@
 #!/bin/bash
+set +o posix
 
 bundle_on_topics () {
   local topic=$1
@@ -9,4 +10,3 @@ bundle_on_topics () {
 
 bundle_on_topics $DOT_TOPIC;
 source "$DOT_DIRECTORY/cmd/backup.sh";
-source "$DOT_DIRECTORY/cmd/symlink.sh";
