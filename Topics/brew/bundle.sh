@@ -15,5 +15,7 @@
 
 source "$DOT_TOPIC_DIRECTORY/share.sh";
 
-source "$DOT_TOPIC_DIRECTORY/update.sh";
+if ! [[ -f $BREWFILE_PATH ]]; then
+  source "$DOT_TOPIC_DIRECTORY/update.sh";
+fi
 source "$DOT_TOPIC_DIRECTORY/install.sh";
