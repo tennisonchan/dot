@@ -9,10 +9,6 @@ backup_on_topic () {
   local topic=$1
   if [[ -n $topic ]]; then
     run_command "backup" $topic;
-  else
-    all_topics | while read topic; do
-      run_command "backup" $topic;
-    done
   fi;
 }
 

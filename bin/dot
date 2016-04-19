@@ -1,7 +1,14 @@
 #!/bin/bash
 set +o posix
 
+chdir() {
+  cd "$@" >/dev/null
+}
+
+DOT_BIN_PATH="$(chdir "${0%/*}" && pwd -P)"
+DOT_ROOT="${DOT_BIN_PATH%/*}"
 OPT_PREFIX="$(brew --prefix dot)"
+OPT_PREFIX="${OPT_PREFIX:-$DOT_ROOT}"
 DOT_DIRECTORY="$OPT_PREFIX/Dot"
 DOT_TOPICS_DIRECTORY="$OPT_PREFIX/Topics"
 DOTFILES_DIRECTORY="$HOME/.dotfiles"
